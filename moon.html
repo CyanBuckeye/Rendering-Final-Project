@@ -75,21 +75,21 @@
 			function ball(x, y, z, radius)
 			{
 			    ballcamera = new THREE.CubeCamera(0.1, 5000, 512);
-				ballcamera.position.set(x, y, z);
-				scene.add(ballcamera);
-				ballcamera.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;
+			    ballcamera.position.set(x, y, z);
+			    scene.add(ballcamera);
+			    ballcamera.renderTarget.texture.minFilter = THREE.LinearMipMapLinearFilter;
 				
-				var texture =  new THREE.TextureLoader().load('textures/minas.jpg');
+			    var texture =  new THREE.TextureLoader().load('textures/minas.jpg');
 			    var geometry = new THREE.SphereBufferGeometry( 10, 32, 32 );
-				ballMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff,
-        map: texture,				
-		envMap: ballcamera.renderTarget.texture, 
-		refractionRatio: 0.985, 
-		reflectivity: 0.4 } );
-				//envMap: ballcamera.renderTarget.texture
-				sphere = new THREE.Mesh( geometry, ballMaterial );
-				sphere.position.set(x, y, z);
-				scene.add( sphere );
+			    ballMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff,
+                                           map: texture,				
+		                           envMap: ballcamera.renderTarget.texture, 
+		                           refractionRatio: 0.985, 
+		            reflectivity: 0.4 } );
+			    //envMap: ballcamera.renderTarget.texture
+			    sphere = new THREE.Mesh( geometry, ballMaterial );
+			    sphere.position.set(x, y, z);
+		            scene.add( sphere );
 			}
 			
 			function shield(x, y, z)
@@ -97,28 +97,28 @@
 			    var geometry = new THREE.CylinderGeometry( 20, 22, 1, 64 );
 				//var shieldCamera = new THREE.CubeCamera(1, 1000, 512);
 				//scene.add(shieldCamera);
-				var texture = new THREE.TextureLoader().load('textures/iron.jpg');
-				var shieldMaterial = new THREE.MeshBasicMaterial({ map: texture });
-                var cylinder = new THREE.Mesh( geometry, shieldMaterial );
-				cylinder.position.set(x, y, z);
-                scene.add( cylinder ); 
+			    var texture = new THREE.TextureLoader().load('textures/iron.jpg');
+			    var shieldMaterial = new THREE.MeshBasicMaterial({ map: texture });
+                            var cylinder = new THREE.Mesh( geometry, shieldMaterial );
+			    cylinder.position.set(x, y, z);
+                            scene.add( cylinder ); 
 				
-				var circle = new THREE.CircleGeometry( 20, 64 );
-				var circle_texture = new THREE.TextureLoader().load('textures/shield.png');
-                var material = new THREE.MeshBasicMaterial( { map: circle_texture } );
-                var circle = new THREE.Mesh( geometry, material );
+			    var circle = new THREE.CircleGeometry( 20, 64 );
+			    var circle_texture = new THREE.TextureLoader().load('textures/shield.png');
+                            var material = new THREE.MeshBasicMaterial( { map: circle_texture } );
+                            var circle = new THREE.Mesh( geometry, material );
 				circle.position.set(x, y, z);
-                scene.add( circle );
-			}
+                                scene.add( circle );
+			    }
 			function addLight(x, y, z)
 			{
 			    var candle = new THREE.PointLight(0xffffff, 3, 500);
-				candle.position.set(x, y, z);
-				candle.castShadow = true;
-				candle.shadowDarkness = 0.5;
-				candle.shadowCameraVisible = true;
-				scene.add(candle);
-				return candle
+			    candle.position.set(x, y, z);
+			    candle.castShadow = true;
+			    candle.shadowDarkness = 0.5;
+			    candle.shadowCameraVisible = true;
+			    scene.add(candle);
+			    return candle
 			}
 			
 			function drawRing(radius, tube, x, y, z)
@@ -126,12 +126,12 @@
 			    var texture = new THREE.TextureLoader().load('textures/gold.jpg');
 			    var geometry = new THREE.TorusBufferGeometry(radius, tube, 30, 200);
 				//var material = new THREE.MeshLambertMaterial( { map: texture} );
-				var material = new THREE.MeshPhongMaterial( { map: texture, shading: THREE.FlatShading, overdraw: 0.5, shininess: 0 } );
-				var ringMesh = new THREE.Mesh(geometry, material);
-				ringMesh.position.set(x, y, z);
-				ringMesh.rotateX(Math.PI / 2);
-				scene.add(ringMesh);
-				return ringMesh;
+			    var material = new THREE.MeshPhongMaterial( { map: texture, shading: THREE.FlatShading, overdraw: 0.5, shininess: 0 } );
+			    var ringMesh = new THREE.Mesh(geometry, material);
+			    ringMesh.position.set(x, y, z);
+			    ringMesh.rotateX(Math.PI / 2);
+			    scene.add(ringMesh);
+			    return ringMesh;
 			}
 			
 			function drawTable(x, y, z, leng, width, thick, ht, radius)
@@ -139,104 +139,104 @@
 			    
 			    var lg1, lg2, lg3, lg4, fc;
 				
-				var texture = new THREE.TextureLoader().load('textures/wood.jpg');
-				var material = new THREE.MeshLambertMaterial({map: texture, overdraw: 0.5});
-				var legmaterial = new THREE.MeshLambertMaterial({map: texture, overdraw: 0.5});
-				lg1 = drawleg(ht, radius, legmaterial);
-				lg2 = drawleg(ht, radius, material);
-				lg3 = drawleg(ht, radius, material);
-				lg4 = drawleg(ht, radius, material);
-				fc = drawFace(leng, width, thick, material);
-		        fc.position.set(x, y, z);
-				lg1.position.set(x - leng / 2 + radius * 1.5, y - thick, z + width / 2 - radius * 1.5);
-				lg2.position.set(x - leng / 2 + radius * 1.5, y - thick, z - width / 2 + radius * 1.5);
-				lg3.position.set(x + leng / 2 - radius * 1.5, y - thick, z + width / 2 - radius * 1.5);
-				lg4.position.set(x + leng / 2 - radius * 1.5, y - thick, z - width / 2 + radius * 1.5);
-				scene.add(lg1);
-				scene.add(lg2);
-				scene.add(lg3);
-				scene.add(lg4);
-				scene.add(fc);
+			    var texture = new THREE.TextureLoader().load('textures/wood.jpg');
+			    var material = new THREE.MeshLambertMaterial({map: texture, overdraw: 0.5});
+			    var legmaterial = new THREE.MeshLambertMaterial({map: texture, overdraw: 0.5});
+			    lg1 = drawleg(ht, radius, legmaterial);
+			    lg2 = drawleg(ht, radius, material);
+			    lg3 = drawleg(ht, radius, material);
+			    lg4 = drawleg(ht, radius, material);
+			    fc = drawFace(leng, width, thick, material);
+		            fc.position.set(x, y, z);
+			    lg1.position.set(x - leng / 2 + radius * 1.5, y - thick, z + width / 2 - radius * 1.5);
+			    lg2.position.set(x - leng / 2 + radius * 1.5, y - thick, z - width / 2 + radius * 1.5);
+			    lg3.position.set(x + leng / 2 - radius * 1.5, y - thick, z + width / 2 - radius * 1.5);
+			    lg4.position.set(x + leng / 2 - radius * 1.5, y - thick, z - width / 2 + radius * 1.5);
+			    scene.add(lg1);
+			    scene.add(lg2);
+			    scene.add(lg3);
+			    scene.add(lg4);
+			    scene.add(fc);
 			};
 			
 			function drawFace(leng, width, thick, material)
 			{
 			    var geometry = new THREE.BoxGeometry(leng, thick, width);
-				var mesh = new THREE.Mesh(geometry, material);
-				return mesh;
+			    var mesh = new THREE.Mesh(geometry, material);
+			    return mesh;
 			};
 			
 			function drawleg(ht, radius, material)
 			{
 			    var geometry = new THREE.CylinderGeometry( radius, radius, ht, 32 );
 			    var mesh = new THREE.Mesh(geometry, material);
-				return mesh;
+			    return mesh;
 			};
 			
 			function drawbook(x, y, z, len, wid, thick)
 			{
 			    var bookbodyTexture = new THREE.TextureLoader().load('textures/bookbody.jpg'); 
 			    var material = new THREE.MeshLambertMaterial({map: bookbodyTexture});
-				var geometry = new THREE.BoxGeometry(wid, thick, len);
-				var mesh = new THREE.Mesh(geometry, material);
-				mesh.position.set(x, y, z);
-				scene.add(mesh);
+			    var geometry = new THREE.BoxGeometry(wid, thick, len);
+			    var mesh = new THREE.Mesh(geometry, material);
+			    mesh.position.set(x, y, z);
+			    scene.add(mesh);
 				
-				var bookcoverTexture = new THREE.TextureLoader().load('textures/bookcover.jpg');
-				var cover_material = new THREE.MeshLambertMaterial({map: bookcoverTexture});
-				var cover_geometry = new THREE.PlaneGeometry(wid, len);
-				coverMesh = new THREE.Mesh(cover_geometry, cover_material);
-				coverMesh.rotateX(-Math.PI / 2);
-				coverMesh.position.set(x, y + thick / 2 + 0.5, z);
-				scene.add(coverMesh);
+			    var bookcoverTexture = new THREE.TextureLoader().load('textures/bookcover.jpg');
+			    var cover_material = new THREE.MeshLambertMaterial({map: bookcoverTexture});
+			    var cover_geometry = new THREE.PlaneGeometry(wid, len);
+			    coverMesh = new THREE.Mesh(cover_geometry, cover_material);
+			    coverMesh.rotateX(-Math.PI / 2);
+			    coverMesh.position.set(x, y + thick / 2 + 0.5, z);
+			    scene.add(coverMesh);
 				
-				var pageTexture = new THREE.TextureLoader().load('textures/page.jpg');
-				var pageMaterial = new THREE.MeshLambertMaterial({map: pageTexture});
+			    var pageTexture = new THREE.TextureLoader().load('textures/page.jpg');
+			    var pageMaterial = new THREE.MeshLambertMaterial({map: pageTexture});
 				
 				//var side1_geometry = new THREE.PlaneGeometry(wid, thick);
 				//var side1_Mesh = new THREE.Mesh(side1_geometry, pageMaterial);
 				//side1_Mesh.position.set(x, y, z + 21);
 				//scene.add(side1_Mesh);
 				
-				var side2_geometry = new THREE.PlaneGeometry(len, thick);
-				var side2_Mesh = new THREE.Mesh(side2_geometry, pageMaterial);
-				side2_Mesh.rotateY(Math.PI / 2);
-				side2_Mesh.position.set(x + 12.8, y, z);
-				scene.add(side2_Mesh);
+			    var side2_geometry = new THREE.PlaneGeometry(len, thick);
+			    var side2_Mesh = new THREE.Mesh(side2_geometry, pageMaterial);
+			    side2_Mesh.rotateY(Math.PI / 2);
+			    side2_Mesh.position.set(x + 12.8, y, z);
+			    scene.add(side2_Mesh);
 			}
 			
 			function drawMap(x, y, z, len, wid)
 			{
 			    var map_Geometry = new THREE.PlaneGeometry(wid, len);
-				var map_texture = new THREE.TextureLoader().load('textures/map.jpg');
-				var map_material = new THREE.MeshLambertMaterial({map: map_texture});
-				var mapMesh = new THREE.Mesh(map_Geometry, map_material);
-				mapMesh.rotateX(-Math.PI / 2);
-				mapMesh.position.set(x, y, z);
-				mapMesh.rotateZ(Math.PI / 4);
-				scene.add(mapMesh);
+			    var map_texture = new THREE.TextureLoader().load('textures/map.jpg');
+			    var map_material = new THREE.MeshLambertMaterial({map: map_texture});
+			    var mapMesh = new THREE.Mesh(map_Geometry, map_material);
+			    mapMesh.rotateX(-Math.PI / 2);
+			    mapMesh.position.set(x, y, z);
+			    mapMesh.rotateZ(Math.PI / 4);
+			    scene.add(mapMesh);
 			}
 			
 			function animate() {
 
-				requestAnimationFrame( animate );
-				sphere.rotateY(0.005);
-				var delta = clock.getDelta();
-				if(camera.position.x > 0) camera.position.x -= delta * 2;
-				if(camera.position.z > 0) camera.position.z -= delta * 2;
-				if(camera.position.x <= 0 && camera.position.z <= 0 && camera.position.y > 30)
-				    camera.position.y -= delta * 4;
-				camera.lookAt(new THREE.Vector3(0,0,0));
+			    requestAnimationFrame( animate );
+			    sphere.rotateY(0.005);
+			    var delta = clock.getDelta();
+			    if(camera.position.x > 0) camera.position.x -= delta * 2;
+			    if(camera.position.z > 0) camera.position.z -= delta * 2;
+			    if(camera.position.x <= 0 && camera.position.z <= 0 && camera.position.y > 30)
+			    camera.position.y -= delta * 4;
+			    camera.lookAt(new THREE.Vector3(0,0,0));
 				//coverMesh.rotateY(-0.001);
-				render();
+			    render();
 
 			};
 			function render() {
 			    ballMaterial.envMap = ballcamera.renderTarget.texture; 
-         	    ballcamera.updateCubeMap( renderer, scene ); 
+         	            ballcamera.updateCubeMap( renderer, scene ); 
 
 			    sphere.visible = true;
-				renderer.render(scene, camera);
+			    renderer.render(scene, camera);
 				
 			};
 
