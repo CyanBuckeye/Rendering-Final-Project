@@ -5,4 +5,4 @@ It works well on Edge and IE.
 
 Screenshot
 --------------
-![home page](https://raw.githubusercontent.com/cyanBuckeye/Rendering-Final-Project/master/screen shot/screenshot.png)
+![home page](https://raw.githubusercontent.com/cyanBuckeye/Rendering-Final-Project/master/img/screenshot.png)
